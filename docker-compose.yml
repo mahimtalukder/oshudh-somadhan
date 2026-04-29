@@ -1,0 +1,31 @@
+services:
+  postgres:
+    image: postgres:17
+    container_name: oshudh_postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: oshudh_somadhan
+    ports:
+      - "5433:5432"
+    volumes:
+      - oshudh_postgres_data:/var/lib/postgresql/data
+    networks:
+      - oshudh_network
+
+  redis:
+    image: redis:7-alpine
+    container_name: oshudh_redis
+    restart: unless-stopped
+    ports:
+      - "6379:6379"
+    networks:
+      - oshudh_network
+
+volumes:
+  oshudh_postgres_data:
+
+networks:
+  oshudh_network:
+    driver: bridge
