@@ -25,13 +25,13 @@ func NewRouter(db *pgxpool.Pool) *gin.Engine {
 	router.GET("/debug/db-ping", healthHandlers.CheckDbConnection)
 
 	//medicine routes
-	
+
 	medicineRoute := v1.Group("/medicines")
 	medicineRoute.GET("/search", medicineHandler.SearchMedicines)
-	medicineRoute.GET("/", medicineHandler.ListMedicines)
+	v1.GET("/medicines", medicineHandler.ListMedicines)
 	medicineRoute.GET("/:id", medicineHandler.GetMedicineByID)
 	medicineRoute.GET("/:id/alternatives", medicineHandler.GetAlternatives)
 	v1.GET("/generic/:generic_id/medicines", medicineHandler.GetMedicinesByGenericID)
-	
+
 	return router
 }
